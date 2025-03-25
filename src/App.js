@@ -1,8 +1,4 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 export default function AnnuityCalculator() {
   const [deposit, setDeposit] = useState(1000000);
@@ -29,128 +25,91 @@ export default function AnnuityCalculator() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9] px-4 md:px-12 py-10">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-          AnchorAnnuity.com – Fixed Annuity Tax Advantage Calculator
-        </h1>
+    <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f9f9f9", padding: "40px" }}>
+      <h1 style={{ fontSize: "28px", fontWeight: "bold", textAlign: "center", marginBottom: "30px" }}>
+        AnchorAnnuity.com – Fixed Annuity Tax Advantage Calculator
+      </h1>
 
-        <div className="grid md:grid-cols-3 gap-10 mb-12">
-          <div className="col-span-1 space-y-6">
-            <Card className="bg-white p-6 rounded-xl shadow-sm">
-              <CardContent className="space-y-4">
-                <div>
-                  <label className="block text-sm text-gray-700 font-medium mb-1">Deposit Amount ($)</label>
-                  <Input
-                    type="number"
-                    value={deposit}
-                    onChange={(e) => setDeposit(Number(e.target.value))}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-gray-700 font-medium mb-1">MYG Rate (%)</label>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    value={rate}
-                    onChange={(e) => setRate(Number(e.target.value))}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-gray-700 font-medium mb-1">Tax Rate (%)</label>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    value={taxRate}
-                    onChange={(e) => setTaxRate(Number(e.target.value))}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-gray-700 font-medium mb-1">Term Length (Years)</label>
-                  <div className="flex gap-2 mb-2">
-                    {presets.map((p) => (
-                      <Button
-                        key={p}
-                        variant={term === p ? "default" : "outline"}
-                        onClick={() => setTerm(p)}
-                        className={term === p ? "bg-[#F3D236] text-black" : ""}
-                      >
-                        {p} yr
-                      </Button>
-                    ))}
-                  </div>
-                  <Input
-                    type="number"
-                    value={term}
-                    onChange={(e) => setTerm(Number(e.target.value))}
-                  />
-                </div>
-              </CardContent>
-            </Card>
+      <div style={{ display: "flex", gap: "40px", flexWrap: "wrap" }}>
+        {/* Left Column - Inputs */}
+        <div style={{ flex: "1", minWidth: "300px", background: "#fff", padding: "20px", borderRadius: "10px", boxShadow: "0 0 10px rgba(0,0,0,0.05)" }}>
+          <div style={{ marginBottom: "15px" }}>
+            <label>Deposit Amount ($)</label>
+            <input type="number" value={deposit} onChange={(e) => setDeposit(Number(e.target.value))} style={{ width: "100%", padding: "8px", marginTop: "5px" }} />
+          </div>
+          <div style={{ marginBottom: "15px" }}>
+            <label>MYG Rate (%)</label>
+            <input type="number" value={rate} onChange={(e) => setRate(Number(e.target.value))} step="0.01" style={{ width: "100%", padding: "8px", marginTop: "5px" }} />
+          </div>
+          <div style={{ marginBottom: "15px" }}>
+            <label>Tax Rate (%)</label>
+            <input type="number" value={taxRate} onChange={(e) => setTaxRate(Number(e.target.value))} step="0.01" style={{ width: "100%", padding: "8px", marginTop: "5px" }} />
+          </div>
+          <div style={{ marginBottom: "15px" }}>
+            <label>Term Length (Years)</label>
+            <div style={{ display: "flex", gap: "8px", marginTop: "5px" }}>
+              {presets.map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setTerm(p)}
+                  style={{
+                    padding: "8px 12px",
+                    backgroundColor: term === p ? "#F3D236" : "#eee",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {p} yr
+                </button>
+              ))}
+            </div>
+            <input type="number" value={term} onChange={(e) => setTerm(Number(e.target.value))} style={{ width: "100%", padding: "8px", marginTop: "10px" }} />
+          </div>
+        </div>
+
+        {/* Right Column - Results */}
+        <div style={{ flex: "2", minWidth: "300px", display: "flex", flexDirection: "column", gap: "30px" }}>
+          <div style={{ background: "#fff", padding: "20px", borderRadius: "10px", boxShadow: "0 0 10px rgba(0,0,0,0.05)" }}>
+            <h2 style={{ fontSize: "20px", marginBottom: "20px" }}>Your Results</h2>
+            <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "15px" }}>
+              <div>
+                <p style={{ fontSize: "14px", color: "#666" }}>Tax-Deferred Gain</p>
+                <p style={{ fontWeight: "bold" }}>${taxDeferredGain.toFixed(2)}</p>
+              </div>
+              <div>
+                <p style={{ fontSize: "14px", color: "#666" }}>Taxed Annually Gain</p>
+                <p style={{ fontWeight: "bold" }}>${taxedAnnuallyGain.toFixed(2)}</p>
+              </div>
+              <div>
+                <p style={{ fontSize: "14px", color: "#666" }}>Tax Savings</p>
+                <p style={{ fontWeight: "bold", color: "green" }}>${taxSavings.toFixed(2)}</p>
+              </div>
+            </div>
           </div>
 
-          <div className="col-span-2 space-y-6">
-            <Card className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Results</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <p className="text-gray-500 text-sm">Tax-Deferred Gain</p>
-                  <p className="text-lg font-bold text-gray-800">
-                    ${taxDeferredGain.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-gray-500 text-sm">Taxed Annually Gain</p>
-                  <p className="text-lg font-bold text-gray-800">
-                    ${taxedAnnuallyGain.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-gray-500 text-sm">Tax Savings</p>
-                  <p className="text-lg font-bold text-green-600">
-                    ${taxSavings.toFixed(2)}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-6">
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={chartData}>
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip formatter={(value) => `$${value.toFixed(2)}`} />
-                    <Bar dataKey="value" fill="#F3D236" radius={[6, 6, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </Card>
-
-            <Card className="bg-white p-6 rounded-xl shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                Fixed Annuity Product Rates
-              </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left text-gray-700">
-                  <thead>
-                    <tr className="bg-[#F3D236] text-black">
-                      <th className="px-4 py-2 font-semibold">Product</th>
-                      <th className="px-4 py-2 font-semibold">Carrier</th>
-                      <th className="px-4 py-2 font-semibold">Term</th>
-                      <th className="px-4 py-2 font-semibold">Rate</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {sampleProducts.map((product, idx) => (
-                      <tr key={idx} className="border-b hover:bg-gray-50">
-                        <td className="px-4 py-2">{product.name}</td>
-                        <td className="px-4 py-2">{product.carrier}</td>
-                        <td className="px-4 py-2">{product.term} yrs</td>
-                        <td className="px-4 py-2">{(product.rate * 100).toFixed(2)}%</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Card>
+          <div style={{ background: "#fff", padding: "20px", borderRadius: "10px", boxShadow: "0 0 10px rgba(0,0,0,0.05)" }}>
+            <h3 style={{ fontSize: "20px", marginBottom: "15px" }}>Fixed Annuity Product Rates</h3>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead style={{ backgroundColor: "#F3D236" }}>
+                <tr>
+                  <th style={{ padding: "10px", textAlign: "left" }}>Product</th>
+                  <th style={{ padding: "10px", textAlign: "left" }}>Carrier</th>
+                  <th style={{ padding: "10px", textAlign: "left" }}>Term</th>
+                  <th style={{ padding: "10px", textAlign: "left" }}>Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sampleProducts.map((product, idx) => (
+                  <tr key={idx} style={{ borderBottom: "1px solid #eee" }}>
+                    <td style={{ padding: "10px" }}>{product.name}</td>
+                    <td style={{ padding: "10px" }}>{product.carrier}</td>
+                    <td style={{ padding: "10px" }}>{product.term} yrs</td>
+                    <td style={{ padding: "10px" }}>{(product.rate * 100).toFixed(2)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
