@@ -32,15 +32,32 @@ export default function AnnuityCalculator() {
         <div style={{ flex: "1", minWidth: "300px", background: "#fff", padding: "20px", borderRadius: "10px", boxShadow: "0 0 10px rgba(0,0,0,0.05)" }}>
           <div style={{ marginBottom: "15px" }}>
             <label>Deposit Amount ($)</label>
-            <input type="number" value={deposit} onChange={(e) => setDeposit(Number(e.target.value))} style={{ width: "100%", padding: "8px", marginTop: "5px" }} />
+            <input
+              type="number"
+              value={deposit}
+              onChange={(e) => setDeposit(Number(e.target.value))}
+              style={{ width: "100%", maxWidth: "300px", padding: "8px", marginTop: "5px" }}
+            />
           </div>
           <div style={{ marginBottom: "15px" }}>
             <label>MYG Rate (%)</label>
-            <input type="number" value={rate} onChange={(e) => setRate(Number(e.target.value))} step="0.01" style={{ width: "100%", padding: "8px", marginTop: "5px" }} />
+            <input
+              type="number"
+              value={rate}
+              onChange={(e) => setRate(Number(e.target.value))}
+              step="0.01"
+              style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+            />
           </div>
           <div style={{ marginBottom: "15px" }}>
             <label>Tax Rate (%)</label>
-            <input type="number" value={taxRate} onChange={(e) => setTaxRate(Number(e.target.value))} step="0.01" style={{ width: "100%", padding: "8px", marginTop: "5px" }} />
+            <input
+              type="number"
+              value={taxRate}
+              onChange={(e) => setTaxRate(Number(e.target.value))}
+              step="0.01"
+              style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+            />
           </div>
           <div style={{ marginBottom: "15px" }}>
             <label>Term Length (Years)</label>
@@ -61,7 +78,12 @@ export default function AnnuityCalculator() {
                 </button>
               ))}
             </div>
-            <input type="number" value={term} onChange={(e) => setTerm(Number(e.target.value))} style={{ width: "100%", padding: "8px", marginTop: "10px" }} />
+            <input
+              type="number"
+              value={term}
+              onChange={(e) => setTerm(Number(e.target.value))}
+              style={{ width: "100%", padding: "8px", marginTop: "10px" }}
+            />
           </div>
         </div>
 
@@ -113,5 +135,6 @@ export default function AnnuityCalculator() {
     </div>
   );
 }
+
 
 
