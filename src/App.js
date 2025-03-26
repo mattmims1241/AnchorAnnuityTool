@@ -11,11 +11,8 @@ export default function AnnuityCalculator() {
   const taxedAnnuallyGain = deposit * (Math.pow(1 + rate * (1 - taxRate), term) - 1);
   const taxSavings = taxDeferredGain - taxedAnnuallyGain;
 
-  const chartData = [
-    { name: "Tax-Deferred", value: taxDeferredGain },
-    { name: "Taxed Annually", value: taxedAnnuallyGain },
-    { name: "Tax Savings", value: taxSavings },
-  ];
+  const formatCurrency = (num) =>
+    num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   const sampleProducts = [
     { name: "SecureGrowth 3", term: 3, rate: 0.055, carrier: "Sentinel" },
@@ -75,15 +72,15 @@ export default function AnnuityCalculator() {
             <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "15px" }}>
               <div>
                 <p style={{ fontSize: "14px", color: "#666" }}>Tax-Deferred Gain</p>
-                <p style={{ fontWeight: "bold" }}>${taxDeferredGain.toFixed(2)}</p>
+                <p style={{ fontWeight: "bold" }}>${formatCurrency(taxDeferredGain)}</p>
               </div>
               <div>
                 <p style={{ fontSize: "14px", color: "#666" }}>Taxed Annually Gain</p>
-                <p style={{ fontWeight: "bold" }}>${taxedAnnuallyGain.toFixed(2)}</p>
+                <p style={{ fontWeight: "bold" }}>${formatCurrency(taxedAnnuallyGain)}</p>
               </div>
               <div>
                 <p style={{ fontSize: "14px", color: "#666" }}>Tax Savings</p>
-                <p style={{ fontWeight: "bold", color: "green" }}>${taxSavings.toFixed(2)}</p>
+                <p style={{ fontWeight: "bold", color: "green" }}>${formatCurrency(taxSavings)}</p>
               </div>
             </div>
           </div>
@@ -116,4 +113,5 @@ export default function AnnuityCalculator() {
     </div>
   );
 }
+
 
