@@ -2,13 +2,13 @@ import { useState } from "react";
 
 export default function AnnuityCalculator() {
   const [deposit, setDeposit] = useState(100000);
-  const [ratePercent, setRatePercent] = useState(0.05); // now enter 0.05 for 5%
-  const [taxRatePercent, setTaxRatePercent] = useState(0.35); // enter 0.35 for 35%
+  const [ratePercent, setRatePercent] = useState(5);       // Enter as whole number (5 = 5%)
+  const [taxRatePercent, setTaxRatePercent] = useState(35); // Enter as whole number (35 = 35%)
   const [term, setTerm] = useState(3);
 
-  // use values as-is (no extra /100)
-  const rate = ratePercent;
-  const taxRate = taxRatePercent;
+  // Convert to decimals for calculations
+  const rate = ratePercent / 100;
+  const taxRate = taxRatePercent / 100;
 
   const presets = [3, 5, 7, 10];
   const taxDeferredGain = deposit * Math.pow(1 + rate, term) - deposit;
@@ -44,22 +44,22 @@ export default function AnnuityCalculator() {
             />
           </div>
           <div style={{ marginBottom: "15px" }}>
-            <label>MYG Rate (e.g. 0.05 = 5%)</label>
+            <label>MYG Rate (%)</label>
             <input
               type="number"
               value={ratePercent}
               onChange={(e) => setRatePercent(Number(e.target.value))}
-              step="0.001"
+              step="0.1"
               style={{ width: "100%", padding: "8px", marginTop: "5px" }}
             />
           </div>
           <div style={{ marginBottom: "15px" }}>
-            <label>Tax Rate (e.g. 0.35 = 35%)</label>
+            <label>Tax Rate (%)</label>
             <input
               type="number"
               value={taxRatePercent}
               onChange={(e) => setTaxRatePercent(Number(e.target.value))}
-              step="0.01"
+              step="0.1"
               style={{ width: "100%", padding: "8px", marginTop: "5px" }}
             />
           </div>
@@ -139,3 +139,4 @@ export default function AnnuityCalculator() {
     </div>
   );
 }
+
