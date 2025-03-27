@@ -6,6 +6,7 @@ export default function AnnuityCalculator() {
   const [taxRatePercent, setTaxRatePercent] = useState(35); // whole number input
   const [term, setTerm] = useState(5);
 
+  // convert whole number percentages to decimals
   const rate = ratePercent / 100;
   const taxRate = taxRatePercent / 100;
 
