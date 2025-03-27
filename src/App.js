@@ -2,9 +2,12 @@ import { useState } from "react";
 
 export default function AnnuityCalculator() {
   const [deposit, setDeposit] = useState(1000000);
-  const [rate, setRate] = useState(0.05);
-  const [taxRate, setTaxRate] = useState(0.35);
+  const [ratePercent, setRatePercent] = useState(5); // whole number input
+  const [taxRatePercent, setTaxRatePercent] = useState(35); // whole number input
   const [term, setTerm] = useState(5);
+
+  const rate = ratePercent / 100;
+  const taxRate = taxRatePercent / 100;
 
   const presets = [3, 5, 7, 10];
   const taxDeferredGain = deposit * Math.pow(1 + rate, term) - deposit;
@@ -43,9 +46,8 @@ export default function AnnuityCalculator() {
             <label>MYG Rate (%)</label>
             <input
               type="number"
-              value={rate}
-              onChange={(e) => setRate(Number(e.target.value))}
-              step="0.01"
+              value={ratePercent}
+              onChange={(e) => setRatePercent(Number(e.target.value))}
               style={{ width: "100%", padding: "8px", marginTop: "5px" }}
             />
           </div>
@@ -53,9 +55,8 @@ export default function AnnuityCalculator() {
             <label>Tax Rate (%)</label>
             <input
               type="number"
-              value={taxRate}
-              onChange={(e) => setTaxRate(Number(e.target.value))}
-              step="0.01"
+              value={taxRatePercent}
+              onChange={(e) => setTaxRatePercent(Number(e.target.value))}
               style={{ width: "100%", padding: "8px", marginTop: "5px" }}
             />
           </div>
@@ -135,6 +136,3 @@ export default function AnnuityCalculator() {
     </div>
   );
 }
-
-
-
